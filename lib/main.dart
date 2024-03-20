@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:gvm_app/forms/listpage.dart';
+import 'package:gvm_app/forms/registration.dart';
 import 'package:gvm_app/startingScreen/loginScreen.dart';
 import 'package:gvm_app/startingScreen/onboarding_screen.dart';
 import 'package:gvm_app/startingScreen/signupPage.dart';
@@ -42,6 +44,8 @@ class MyApp extends StatelessWidget {
         LoginScreen.id: (context) => const LoginScreen(),
         SignupScreen.id: (context) => const SignupScreen(),
         DashboardScreen.id: (context) => const DashboardScreen(),
+        Registration.id: (context) => const Registration(),
+        ListPages.id: (context) => const ListPages(),
       },
     );
   }
