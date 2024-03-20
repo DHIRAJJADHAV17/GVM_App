@@ -41,7 +41,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             children: <Widget>[
               // Your content here
               Image.asset(
-                'assets/icon.png',
+                'assets/images/icon.png',
                 width: 200,
                 height: 200,
               ),
