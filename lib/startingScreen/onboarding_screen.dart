@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'loginScreen.dart';
 
 class OnboardingScreen extends StatefulWidget {
+  const OnboardingScreen({super.key});
+  static String id = 'splachscreen';
   @override
   _OnboardingScreenState createState() => _OnboardingScreenState();
 }
@@ -28,7 +30,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
-              'assets/image1.jpg',
+              'assets/images/image1.jpg',
             ),
             fit: BoxFit.cover,
           ),

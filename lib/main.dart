@@ -2,20 +2,24 @@ import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:gvm_app/startingScreen/loginScreen.dart';
+import 'package:gvm_app/startingScreen/onboarding_screen.dart';
+import 'package:gvm_app/startingScreen/signupPage.dart';
 
 import 'Dashboard/Dashboard_Screen.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   Platform.isAndroid
-  ? await Firebase.initializeApp(
-    options: const FirebaseOptions(
-        apiKey: "AIzaSyB6UFC8SUOXYPn0otbbZto4oIJSMMw1pao",
-        appId: "1:674246600688:android:293161a8c4182f30a09f35",
-        messagingSenderId: "674246600688",
-        projectId: "softgrid-c481c",
-        storageBucket: 'softgrid-c481c.appspot.com'),
-  )
-  : await Firebase.initializeApp();
+      ? await Firebase.initializeApp(
+          options: const FirebaseOptions(
+              apiKey: "AIzaSyAhWGY_nmjO8Tt8B5vnOqjkbP4Sh19oRWo",
+              appId: "1:760064406384:android:f7f0deb8682f6b352795b5",
+              messagingSenderId: "760064406384",
+              projectId: "gvm-project-d48af",
+              storageBucket: 'gvm-project-d48af.appspot.com'),
+        )
+      : await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -31,9 +35,14 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
         useMaterial3: true,
       ),
-      home: DashboardScreen(),
+      home: OnboardingScreen(),
+      initialRoute: OnboardingScreen.id,
+      routes: {
+        OnboardingScreen.id: (context) => const OnboardingScreen(),
+        LoginScreen.id: (context) => const LoginScreen(),
+        SignupScreen.id: (context) => const SignupScreen(),
+        DashboardScreen.id: (context) => const DashboardScreen(),
+      },
     );
   }
 }
-
-
