@@ -11,10 +11,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController contactNumberController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   bool _isObscure = true;
 
