@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-
-import 'package:onkar_project/screens/signupPage.dart';
+import 'package:gvm_app/Dashboard/Dashboard_Screen.dart';
+import 'package:gvm_app/startingScreen/signupPage.dart';
 
 //import 'HomePage.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+  static String id = 'loginscreen';
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -26,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SafeArea(
         child: Stack(
           children: [
-            Image.asset('assets/image2.jpg',
+            Image.asset('assets/images/image2.jpg',
                 fit: BoxFit.fitHeight,
                 alignment: Alignment.center,
                 width: w,
@@ -173,16 +175,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: h * 0.07,
                             child: ElevatedButton(
                               onPressed: () {
-                                if (_formKey.currentState != null &&
-                                    _formKey.currentState!.validate()) {
-                                  // Perform signup operation
-                                  //  Navigator.push(
-                                  // context,
-                                  // MaterialPageRoute(
-                                  // builder: (context) => MyHomePage(),
-
-                                  // );
-                                }
+                                // if (_formKey.currentState != null &&
+                                //     _formKey.currentState!.validate()) {
+                                // Perform signup operation
+                                Navigator.pushNamed(
+                                    context, DashboardScreen.id);
+                                // }
                               },
                               child: const Text('Login'),
                             ),
@@ -202,11 +200,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         TextButton(
                           onPressed: () {
-                            Navigator.push(
+                            Navigator.pushNamed(
                               context,
-                              MaterialPageRoute(
-                                builder: (context) => SignupScreen(),
-                              ),
+                              SignupScreen.id,
                             );
                           },
                           child: Text('Don\'t have an account?'),
