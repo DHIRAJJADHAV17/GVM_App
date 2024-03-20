@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gvm_app/Dashboard/Dashboard_Screen.dart';
-import 'package:gvm_app/startingScreen/signupPage.dart';
 
 //import 'HomePage.dart';
 
@@ -47,32 +46,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 30)),
                         SizedBox(height: h * 0.03),
-                        TextFormField(
-                          controller: nameController,
-                          style: TextStyle(color: Colors.green),
-                          // Set text color
-                          decoration: InputDecoration(
-                            labelText: 'Name',
-                            labelStyle: TextStyle(color: Colors.white),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  width: 3, color: Colors.blue),
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  const BorderSide(width: 3, color: Colors.red),
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                          ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your name';
-                            }
-                            // Add additional validation if needed
-                            return null;
-                          },
-                        ),
                         SizedBox(height: 20),
                         TextFormField(
                           controller: emailController,
@@ -139,34 +112,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                         ),
                         SizedBox(height: 20),
-                        TextFormField(
-                          controller: contactNumberController,
-                          keyboardType: TextInputType.phone,
-                          style: TextStyle(color: Colors.green),
-                          // Set text color
-                          decoration: InputDecoration(
-                            labelText: 'Contact Number',
-                            labelStyle: TextStyle(color: Colors.white),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  width: 3, color: Colors.blue),
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  const BorderSide(width: 3, color: Colors.red),
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                          ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter your contact number';
-                            }
-                            // Add additional contact number validation if needed
-                            return null;
-                          },
-                        ),
-                        SizedBox(height: 20),
                         ButtonTheme(
                           minWidth: double.infinity,
                           // Set the width to match_parent
@@ -185,27 +130,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: const Text('Login'),
                             ),
                           ),
-                        ),
-                        SizedBox(height: 10),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ForgotPasswordScreen(),
-                              ),
-                            );
-                          },
-                          child: Text('Forgot Password?'),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pushNamed(
-                              context,
-                              SignupScreen.id,
-                            );
-                          },
-                          child: Text('Don\'t have an account?'),
                         ),
                       ],
                     ),
