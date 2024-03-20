@@ -6,7 +6,6 @@ import 'package:gvm_app/forms/listpage.dart';
 import 'package:gvm_app/forms/registration.dart';
 import 'package:gvm_app/startingScreen/loginScreen.dart';
 import 'package:gvm_app/startingScreen/onboarding_screen.dart';
-import 'package:gvm_app/startingScreen/signupPage.dart';
 
 import 'Dashboard/Dashboard_Screen.dart';
 
@@ -42,7 +41,6 @@ class MyApp extends StatelessWidget {
       routes: {
         OnboardingScreen.id: (context) => const OnboardingScreen(),
         LoginScreen.id: (context) => const LoginScreen(),
-        SignupScreen.id: (context) => const SignupScreen(),
         DashboardScreen.id: (context) => const DashboardScreen(),
         Registration.id: (context) => const Registration(),
         ListPages.id: (context) => const ListPages(),
