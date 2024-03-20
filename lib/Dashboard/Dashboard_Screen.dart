@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gvm_app/forms/listpage.dart';
+import 'package:gvm_app/forms/registration.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -58,7 +60,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           height: 210.0,
                           child: GestureDetector(
                             onTap: () {
-                              // Navigator.pushReplacement(context, 'listpage');
+                              Navigator.pushNamed(context, Registration.id);
                             },
                             child: Column(
                               children: [
@@ -79,7 +81,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           height: 210.0,
                           child: GestureDetector(
                             onTap: () {
-                              // Navigator.pushReplacement(context, 'listpage');
+                              Navigator.pushNamed(context, ListPages.id);
                             },
                             child: Column(
                               children: [
