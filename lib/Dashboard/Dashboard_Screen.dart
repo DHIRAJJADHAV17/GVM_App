@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gvm_app/forms/listpage.dart';
 import 'package:gvm_app/forms/registration.dart';
 
+import '../components/components.dart';
+
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
   static String id = 'dashboardscreen';
@@ -13,14 +15,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Dashboard',
-          style: TextStyle(color: Colors.cyan, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.black,
-      ),
+      appBar: custombar(context),
       body: Container(
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(

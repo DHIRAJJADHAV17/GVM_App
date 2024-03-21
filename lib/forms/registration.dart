@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:gvm_app/Dashboard/Dashboard_Screen.dart';
+import 'package:gvm_app/forms/listpage.dart';
 
 import '../components/components.dart';
 
@@ -44,14 +44,7 @@ class _RegistrationState extends State<Registration> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'Dashboard',
-            style: TextStyle(color: Colors.cyan, fontWeight: FontWeight.bold),
-          ),
-          centerTitle: true,
-          backgroundColor: Colors.black,
-        ),
+        appBar: custombar(context),
         body: SafeArea(
           child: SingleChildScrollView(
             child: Padding(
@@ -160,7 +153,7 @@ class _RegistrationState extends State<Registration> {
                           id = value;
                         },
                         decoration: customElevate(
-                            'Enter gov.id no.(adhar,pan-card)', Icons.home),
+                            'Enter gov.id no.(adhar,pan-card)', Icons.password),
                         validator: (value) {
                           // Add validation for required field
                           if (value == null || value.isEmpty) {
@@ -194,8 +187,7 @@ class _RegistrationState extends State<Registration> {
                           ),
                         );
                       }).toList(),
-                      decoration:
-                          customElevate('Select Visitor', Icons.description),
+                      decoration: customElevate('Select Visitor', Icons.person),
                       validator: (value) {
                         // Add validation for required field
                         if (value == null || value.isEmpty) {
@@ -221,7 +213,7 @@ class _RegistrationState extends State<Registration> {
                           );
                         },
                         decoration: customElevate(
-                            'Enter Purpose of meeting', Icons.currency_rupee),
+                            'Enter Purpose of meeting', Icons.details),
                         validator: (value) {
                           // Add validation for required field
                           if (value == null || value.isEmpty) {
@@ -307,7 +299,7 @@ class _RegistrationState extends State<Registration> {
                     context: context,
                     builder: (context) => AlertDialog(
                       title: const Text('Error'),
-                      content: const Text('Please upload both images.'),
+                      content: const Text('Please upload images.'),
                       actions: [
                         TextButton(
                           onPressed: () {
@@ -332,6 +324,7 @@ class _RegistrationState extends State<Registration> {
                       'id': id,
                       'vehical': vehical,
                       'image': imageUrl,
+                      'status': "Pending",
                     });
 
                     showDialog(
@@ -344,20 +337,20 @@ class _RegistrationState extends State<Registration> {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        content: Text('Student created'),
+                        content: Text('Visitor created'),
                       ),
                     );
 
                     // Delay for 1 second and then redirect to dashboard
                     await Future.delayed(const Duration(seconds: 1));
-                    Navigator.pushNamed(context, DashboardScreen.id);
+                    Navigator.pushNamed(context, ListPages.id);
                   } catch (error) {
                     print('Error adding user to Firestore: $error');
                   }
                 }
               },
               child: const Text(
-                'Create Student',
+                'Create Visitor',
                 style: TextStyle(color: Colors.black),
               ),
             ),

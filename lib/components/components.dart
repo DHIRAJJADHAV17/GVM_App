@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:gvm_app/startingScreen/loginScreen.dart';
 import 'package:image_picker/image_picker.dart';
 
 InputDecoration customElevate(String title, IconData icon) {
@@ -56,4 +58,54 @@ Future<String> uploadimg() async {
     print(e);
   }
   return '$imageUrl';
+}
+
+AppBar custombar(BuildContext context) {
+  return AppBar(
+    leading: IconButton(
+      onPressed: () {
+        Navigator.pop(context);
+      },
+      icon: const Icon(
+        Icons.arrow_back_ios_new_rounded,
+        color: Colors.white,
+        size: 40.0,
+      ),
+    ),
+    actions: [
+      IconButton(
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text('Logout!!'),
+              content: Text('Are You Sure To Logout'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    FirebaseAuth.instance.signOut();
+                    Navigator.pop(context);
+                    Navigator.pushNamed(context, LoginScreen.id);
+                  },
+                  child: Text('OK'),
+                ),
+              ],
+            ),
+          );
+        },
+        icon: const Icon(
+          Icons.exit_to_app,
+          color: Colors.white,
+          size: 30.0,
+        ),
+      ),
+    ],
+    centerTitle: true,
+    title: const Text(
+      'GVM',
+      style: TextStyle(
+          color: Colors.white, fontWeight: FontWeight.bold, fontSize: 30.0),
+    ),
+    backgroundColor: const Color(0xFF7BE3FA),
+  );
 }

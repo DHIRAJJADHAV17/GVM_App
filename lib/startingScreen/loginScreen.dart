@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gvm_app/Dashboard/Dashboard_Screen.dart';
+
+import '../Dashboard/Dashboard_Screen.dart';
 
 //import 'HomePage.dart';
 
@@ -11,10 +13,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController contactNumberController = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
   bool _isObscure = true;
 
@@ -120,12 +121,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             height: h * 0.07,
                             child: ElevatedButton(
                               onPressed: () {
-                                // if (_formKey.currentState != null &&
-                                //     _formKey.currentState!.validate()) {
-                                // Perform signup operation
-                                Navigator.pushNamed(
-                                    context, DashboardScreen.id);
-                                // }
+                                if (_formKey.currentState != null &&
+                                    _formKey.currentState!.validate()) {
+                                  // Perform signup operation
+                                  _signIn();
+                                }
                               },
                               child: const Text('Login'),
                             ),
@@ -141,6 +141,17 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  void _signIn() async {
+    String email = emailController.text;
+    String password = passwordController.text;
+
+    final user = await FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: email, password: password);
+    if (user != null) {
+      Navigator.pushNamed(context, DashboardScreen.id);
+    }
   }
 }
 
