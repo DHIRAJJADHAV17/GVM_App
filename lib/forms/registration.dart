@@ -14,6 +14,21 @@ class Registration extends StatefulWidget {
 }
 
 class _RegistrationState extends State<Registration> {
+  @override
+  @override
+  void initState() {
+    super.initState();
+    fetchNamesFromFirebase().then((List<Visitor> fetchedVisitors) {
+      setState(() {
+        visitors =
+            fetchedVisitors; // Update the visitors list with the fetched data
+        names = fetchedVisitors.map((visitor) => visitor.name).toList();
+      });
+    }).catchError((error) {
+      print("Error fetching names: $error");
+    });
+  }
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String? imageUrl;
   String? name;
@@ -24,6 +39,48 @@ class _RegistrationState extends State<Registration> {
   String? vehical;
   String? selectedAdmin;
   String? selectedGender;
+  String? selectedAdminEmail;
+  List<String> names = [];
+  // Future<List<String>> fetchNamesFromFirebase() async {
+  //   try {
+  //     QuerySnapshot<Map<String, dynamic>> querySnapshot =
+  //         await FirebaseFirestore.instance.collection('visitor').get();
+  //
+  //     // Extract names from documents
+  //     querySnapshot.docs.forEach((doc) {
+  //       String name = doc.data()['name'];
+  //       String email = doc.data()['email'];
+  //       visitors.add(Visitor(name: name, email: email));
+  //     });
+  //
+  //     return names;
+  //   } catch (error) {
+  //     // Handle error
+  //     print("Error fetching names: $error");
+  //     return [];
+  //   }
+  // }
+  List<Visitor> visitors = [];
+  Future<List<Visitor>> fetchNamesFromFirebase() async {
+    List<Visitor> visitors = [];
+    try {
+      QuerySnapshot<Map<String, dynamic>> querySnapshot =
+          await FirebaseFirestore.instance.collection('visitor').get();
+
+      // Extract names and emails from documents
+      querySnapshot.docs.forEach((doc) {
+        String name = doc.data()['name'];
+        String email = doc.data()['email'];
+        visitors.add(Visitor(name: name, email: email));
+      });
+
+      return visitors;
+    } catch (error) {
+      // Handle error
+      print("Error fetching names: $error");
+      return [];
+    }
+  }
 
   List<String> Admins = [
     'admin1',
@@ -166,15 +223,19 @@ class _RegistrationState extends State<Registration> {
                     const SizedBox(height: 10.0),
                     DropdownButtonFormField<String>(
                       value: selectedAdmin,
-                      onChanged: (newValue) {
-                        //  Update the selected course when the user selects an item
+                      onChanged: (selectedVisitorName) {
                         setState(() {
-                          selectedAdmin = newValue;
+                          selectedAdmin = selectedVisitorName;
+                          // Find the visitor with the selected name
+                          Visitor selectedVisitor = visitors.firstWhere(
+                              (visitor) => visitor.name == selectedVisitorName);
+                          // Store the email of the selected visitor
+                          selectedAdminEmail = selectedVisitor.email;
                         });
                       },
-                      items: Admins.map((course) {
+                      items: visitors.map((visitor) {
                         return DropdownMenuItem<String>(
-                          value: course,
+                          value: visitor.name,
                           child: Center(
                             // Align the text to the center
                             child: Padding(
@@ -182,7 +243,7 @@ class _RegistrationState extends State<Registration> {
                               padding: const EdgeInsets.symmetric(
                                   vertical: 1.0,
                                   horizontal: 20.0), // Adjust padding as needed
-                              child: Text(course),
+                              child: Text(visitor.name),
                             ),
                           ),
                         );
@@ -318,7 +379,7 @@ class _RegistrationState extends State<Registration> {
                       'name': name,
                       'email': email,
                       'phone': phone,
-                      'selectedAdmin': selectedAdmin,
+                      'selectedAdmin': selectedAdminEmail,
                       'gender': selectedGender,
                       'reason': reason,
                       'id': id,
@@ -359,4 +420,11 @@ class _RegistrationState extends State<Registration> {
       ),
     );
   }
+}
+
+class Visitor {
+  final String name;
+  final String email;
+
+  Visitor({required this.name, required this.email});
 }
