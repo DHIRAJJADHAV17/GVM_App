@@ -41,31 +41,13 @@ class _RegistrationState extends State<Registration> {
   String? selectedGender;
   String? selectedAdminEmail;
   List<String> names = [];
-  // Future<List<String>> fetchNamesFromFirebase() async {
-  //   try {
-  //     QuerySnapshot<Map<String, dynamic>> querySnapshot =
-  //         await FirebaseFirestore.instance.collection('visitor').get();
-  //
-  //     // Extract names from documents
-  //     querySnapshot.docs.forEach((doc) {
-  //       String name = doc.data()['name'];
-  //       String email = doc.data()['email'];
-  //       visitors.add(Visitor(name: name, email: email));
-  //     });
-  //
-  //     return names;
-  //   } catch (error) {
-  //     // Handle error
-  //     print("Error fetching names: $error");
-  //     return [];
-  //   }
-  // }
+
   List<Visitor> visitors = [];
   Future<List<Visitor>> fetchNamesFromFirebase() async {
     List<Visitor> visitors = [];
     try {
       QuerySnapshot<Map<String, dynamic>> querySnapshot =
-          await FirebaseFirestore.instance.collection('visitor').get();
+          await FirebaseFirestore.instance.collection('admin').get();
 
       // Extract names and emails from documents
       querySnapshot.docs.forEach((doc) {
@@ -81,13 +63,6 @@ class _RegistrationState extends State<Registration> {
       return [];
     }
   }
-
-  List<String> Admins = [
-    'admin1',
-    'admin2',
-    'admin3',
-    'admin4',
-  ];
 
   List<String> genders = [
     'Male',
@@ -385,7 +360,7 @@ class _RegistrationState extends State<Registration> {
                       'id': id,
                       'vehical': vehical,
                       'image': imageUrl,
-                      'status': "Pending",
+                      'status': 'Pending',
                     });
 
                     showDialog(
