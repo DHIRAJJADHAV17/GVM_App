@@ -3,11 +3,11 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:gvm_app/forms/listpage.dart';
-import 'package:gvm_app/forms/registration.dart';
 import 'package:gvm_app/startingScreen/loginScreen.dart';
 import 'package:gvm_app/startingScreen/onboarding_screen.dart';
-
 import 'Dashboard/Dashboard_Screen.dart';
+import 'forms/registration.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,9 +41,11 @@ class MyApp extends StatelessWidget {
       routes: {
         OnboardingScreen.id: (context) => const OnboardingScreen(),
         LoginScreen.id: (context) => const LoginScreen(),
-        DashboardScreen.id: (context) => const DashboardScreen(),
-        Registration.id: (context) => const Registration(),
         ListPages.id: (context) => const ListPages(),
+        Registration.id: (context) => const Registration(),
+        DashboardScreen.id: (context) =>  DashboardScreen(),
+      // HomeNotification.id:(context)=> HomeNotification(),
+      // NotificationServices.id:(context)=>  NotificationServices(),
       },
     );
   }

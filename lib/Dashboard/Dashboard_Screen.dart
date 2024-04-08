@@ -3,9 +3,7 @@ import 'package:gvm_app/forms/listpage.dart';
 import 'package:gvm_app/forms/registration.dart';
 
 import '../components/components.dart';
-
 class DashboardScreen extends StatefulWidget {
-  const DashboardScreen({super.key});
   static String id = 'dashboardscreen';
   @override
   State<DashboardScreen> createState() => _DashboardScreenState();
@@ -27,10 +25,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
             colors: <Color>[
               Color(0xff1b2f5f),
               Color(0xff1c3163),
-              //        Color(0xff3358b3),
-              //        Color(0xff1c3163),
-              //        Color(0xff19cb1e3),
-              // Color(0x9cb1e3),
             ],
             // tileMode: Tilemode.mirror,
           ),
@@ -103,4 +97,114 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ),
     );
   }
-}
+ }
+
+
+// class DashboardScreen extends StatelessWidget{
+//   static const String id ='dashboard_screen';
+//   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+//
+//   validateAndSave() {
+//     final FormState? form = _formKey.currentState;
+//     if (form!.validate()) {
+//     }
+//   }
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: custombar(context),
+//       body: SingleChildScrollView(
+//
+//         child: Column(
+//           children: [
+//             Form(
+//               key: _formKey,
+//               child: Container(
+//                 decoration: const BoxDecoration(
+//                     gradient: LinearGradient(
+//                       begin: Alignment.topCenter,
+//                       colors: [
+//                         Colors.lightBlueAccent,
+//                         Colors.lightBlueAccent,
+//                        // Colors.lightBlueAccent
+//                       ],
+//                     )
+//                 ),
+//                 child: Column(
+//                   mainAxisAlignment: MainAxisAlignment.center,
+//                   children: [
+//                     const SizedBox(height: 200,),
+//                     const Padding(
+//                       padding: EdgeInsets.all(20.0),
+//                     ),
+//                     const SizedBox(height: 30,),
+//                     Container(
+//                       decoration: const BoxDecoration(
+//                           color: Colors.white,
+//                           borderRadius: BorderRadius.only(
+//                               topLeft: Radius.circular(70),
+//                               topRight: Radius.circular(70))
+//                       ),
+//                       child: Padding(
+//                         padding: const EdgeInsets.all(25),
+//
+//                         child: Row(
+//                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                               children: [
+//                                 SizedBox(
+//                                   width: 150.0,
+//                                   height: 210.0,
+//                                   child: GestureDetector(
+//                                     onTap: () {
+//                                       Navigator.pushNamed(context, Registration.id);
+//                                     },
+//                                     child: Column(
+//                                       children: [
+//                                         Image.asset(
+//                                           'assets/images/create.png',
+//                                           fit: BoxFit.cover,
+//                                         ),
+//                                         const Text(
+//                                           'create Request',
+//                                           style: TextStyle(fontWeight: FontWeight.bold),
+//                                         ),
+//                                       ],
+//                                     ),
+//                                   ),
+//                                 ),
+//                                 SizedBox(
+//                                   width: 150.0,
+//                                   height: 210.0,
+//                                   child: GestureDetector(
+//                                     onTap: () {
+//                                       Navigator.pushNamed(context, ListPages.id);
+//                                     },
+//                                     child: Column(
+//                                       children: [
+//                                         Image.asset(
+//                                           'assets/images/check_2.png',
+//                                           fit: BoxFit.cover,
+//                                         ),
+//                                         const Text(
+//                                           'check Request',
+//                                           style: TextStyle(fontWeight: FontWeight.bold),
+//                                         )
+//                                       ],
+//                                     ),
+//                                   ),
+//                                 ),
+//                               ],
+//
+//                         ),
+//                       ),
+//                     )
+//                   ],
+//                 ),
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }

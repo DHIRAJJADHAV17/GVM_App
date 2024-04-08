@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gvm_app/forms/listpage.dart';
-
 import '../components/components.dart';
 
 class Registration extends StatefulWidget {
@@ -41,7 +40,6 @@ class _RegistrationState extends State<Registration> {
   String? selectedGender;
   String? selectedAdminEmail;
   List<String> names = [];
-
   List<Visitor> visitors = [];
   Future<List<Visitor>> fetchNamesFromFirebase() async {
     List<Visitor> visitors = [];
@@ -360,7 +358,7 @@ class _RegistrationState extends State<Registration> {
                       'id': id,
                       'vehical': vehical,
                       'image': imageUrl,
-                      'status': 'Pending',
+                      'status': "Pending",
                     });
 
                     showDialog(

@@ -1,24 +1,16 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import '../Dashboard/Dashboard_Screen.dart';
-
-//import 'HomePage.dart';
-
+import 'package:gvm_app/Dashboard/Dashboard_Screen.dart';
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
   static String id = 'loginscreen';
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
-
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
   final _formKey = GlobalKey<FormState>();
   bool _isObscure = true;
-
   @override
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
@@ -28,11 +20,6 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SafeArea(
         child: Stack(
           children: [
-            Image.asset('assets/images/image2.jpg',
-                fit: BoxFit.fitHeight,
-                alignment: Alignment.center,
-                width: w,
-                height: h),
             SingleChildScrollView(
               child: Container(
                 padding: EdgeInsets.only(
@@ -48,21 +35,23 @@ class _LoginScreenState extends State<LoginScreen> {
                                 fontWeight: FontWeight.bold, fontSize: 30)),
                         SizedBox(height: h * 0.03),
                         SizedBox(height: 20),
+
                         TextFormField(
                           controller: emailController,
-                          style: TextStyle(color: Colors.green),
+                          style: const TextStyle(color: Colors.black),
                           // Set text color
                           decoration: InputDecoration(
                             labelText: 'Email',
-                            labelStyle: TextStyle(color: Colors.white),
+                            hintText: 'Enter your email',
+                            prefixIcon: Icon(Icons.email_outlined),
+
+                            labelStyle: const TextStyle(color: Colors.black),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  width: 3, color: Colors.blue),
+                              borderSide: const BorderSide(width: 2, color: Colors.black),
                               borderRadius: BorderRadius.circular(15),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  const BorderSide(width: 3, color: Colors.red),
+                              borderSide: const BorderSide(width: 3, color: Colors.blueGrey),
                               borderRadius: BorderRadius.circular(15),
                             ),
                           ),
@@ -70,27 +59,34 @@ class _LoginScreenState extends State<LoginScreen> {
                             if (value == null || value.isEmpty) {
                               return 'Please enter your email';
                             }
-                            // Add additional email validation if needed
+                            // Email format validation
+                            final emailRegExp = RegExp(
+                                r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
+                            if (!emailRegExp.hasMatch(value)) {
+                              return 'Please enter a valid email';
+                            }
+                            // Add additional email validation here if needed
                             return null;
                           },
                         ),
+
                         SizedBox(height: 20),
                         TextFormField(
                           controller: passwordController,
                           obscureText: _isObscure,
-                          style: TextStyle(color: Colors.green),
+                          style: const TextStyle(color: Colors.black),
                           // Set text color
                           decoration: InputDecoration(
                             labelText: 'Password',
-                            labelStyle: TextStyle(color: Colors.white),
+                            hintText: 'Enter your password',
+                            prefixIcon: Icon(Icons.password),
+                            labelStyle: const TextStyle(color: Colors.black),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  width: 3, color: Colors.blue),
+                              borderSide: const BorderSide(width: 2, color: Colors.black),
                               borderRadius: BorderRadius.circular(15),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  const BorderSide(width: 3, color: Colors.red),
+                              borderSide: const BorderSide(width: 3, color: Colors.blueGrey),
                               borderRadius: BorderRadius.circular(15),
                             ),
                             suffixIcon: IconButton(
@@ -108,10 +104,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             if (value == null || value.isEmpty) {
                               return 'Please enter your password';
                             }
-                            // Add additional password validation if needed
+                            if (value.length < 8) {
+                              return 'Password must be at least 8 characters long';
+                            }
                             return null;
                           },
                         ),
+
                         SizedBox(height: 20),
                         ButtonTheme(
                           minWidth: double.infinity,
@@ -122,10 +121,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: ElevatedButton(
                               onPressed: () {
                                 if (_formKey.currentState != null &&
-                                    _formKey.currentState!.validate()) {
-                                  // Perform signup operation
-                                  _signIn();
-                                }
+                                    _formKey.currentState!.validate())
+                                {
+                                Navigator.pushNamed(
+                                    context, DashboardScreen.id);
+                                 }
                               },
                               child: const Text('Login'),
                             ),
@@ -141,17 +141,6 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
-  }
-
-  void _signIn() async {
-    String email = emailController.text;
-    String password = passwordController.text;
-
-    final user = await FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: email, password: password);
-    if (user != null) {
-      Navigator.pushNamed(context, DashboardScreen.id);
-    }
   }
 }
 
