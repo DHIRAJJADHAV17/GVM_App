@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gvm_app/forms/listpage.dart';
-import 'package:gvm_app/forms/registration.dart';
 
-import '../components/components.dart';
+import '../forms/registration.dart';
 class DashboardScreen extends StatefulWidget {
   static String id = 'dashboardscreen';
   @override
@@ -13,198 +12,109 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: custombar(context),
-      body: Container(
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.only(
-              bottomRight: Radius.circular(2000),
-              topLeft: Radius.circular(1160)),
-          gradient: LinearGradient(
-            begin: Alignment.bottomLeft,
-            end: Alignment(0.8, 1),
-            colors: <Color>[
-              Color(0xff1b2f5f),
-              Color(0xff1c3163),
-            ],
-            // tileMode: Tilemode.mirror,
-          ),
-        ),
-        child: Center(
-          child: SafeArea(
+      body: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: Color(0xFF7BE3FA),
+               // color: Theme.of(context).primaryColor,
+                borderRadius:
+                    const BorderRadius.only(bottomRight: Radius.circular(50))),
             child: Column(
-              //crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
-                  height: 80,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SizedBox(
-                          width: 150.0,
-                          height: 210.0,
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(context, Registration.id);
-                            },
-                            child: Column(
-                              children: [
-                                Image.asset(
-                                  'assets/images/create.png',
-                                  fit: BoxFit.cover,
-                                ),
-                                const Text(
-                                  'create Request',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 150.0,
-                          height: 210.0,
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.pushNamed(context, ListPages.id);
-                            },
-                            child: Column(
-                              children: [
-                                Image.asset(
-                                  'assets/images/check_2.png',
-                                  fit: BoxFit.cover,
-                                ),
-                                const Text(
-                                  'check Request',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                const SizedBox(height: 50),
+                ListTile(
+                  contentPadding: EdgeInsets.symmetric(horizontal: 30),
+                  title: Text(
+                    'Hi Admin',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall
+                        ?.copyWith(color: Colors.white),
                   ),
-                )
+                  subtitle: Text(
+                    'Good Morning',
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium
+                        ?.copyWith(color: Colors.white),
+                  ),
+                  trailing: const CircleAvatar(
+                    radius: 30,
+                    backgroundImage: AssetImage('assets/images/hello.png'),
+                  ),
+                ),
+                const SizedBox(height: 50),
               ],
             ),
           ),
-        ),
+          Container(
+            color: Color(0xFF7BE3FA),
+            //color: Theme.of(context).primaryColor,
+            child: Container(
+
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius:
+                      BorderRadius.only(topLeft: Radius.circular(100))),
+              child: GridView.count(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                crossAxisCount: 2,
+                crossAxisSpacing: 40,
+                mainAxisSpacing: 30,
+                children: [
+                  itemDashboard('Create', Icons.create, Colors.deepOrange, (){
+                    Navigator.pushNamed(context, Registration.id);
+                  }),
+                  itemDashboard('Check', Icons.check, Colors.green, (){
+                    Navigator.pushNamed(context, ListPages.id);
+                  }),
+                ],
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
- }
 
-
-// class DashboardScreen extends StatelessWidget{
-//   static const String id ='dashboard_screen';
-//   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-//
-//   validateAndSave() {
-//     final FormState? form = _formKey.currentState;
-//     if (form!.validate()) {
-//     }
-//   }
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: custombar(context),
-//       body: SingleChildScrollView(
-//
-//         child: Column(
-//           children: [
-//             Form(
-//               key: _formKey,
-//               child: Container(
-//                 decoration: const BoxDecoration(
-//                     gradient: LinearGradient(
-//                       begin: Alignment.topCenter,
-//                       colors: [
-//                         Colors.lightBlueAccent,
-//                         Colors.lightBlueAccent,
-//                        // Colors.lightBlueAccent
-//                       ],
-//                     )
-//                 ),
-//                 child: Column(
-//                   mainAxisAlignment: MainAxisAlignment.center,
-//                   children: [
-//                     const SizedBox(height: 200,),
-//                     const Padding(
-//                       padding: EdgeInsets.all(20.0),
-//                     ),
-//                     const SizedBox(height: 30,),
-//                     Container(
-//                       decoration: const BoxDecoration(
-//                           color: Colors.white,
-//                           borderRadius: BorderRadius.only(
-//                               topLeft: Radius.circular(70),
-//                               topRight: Radius.circular(70))
-//                       ),
-//                       child: Padding(
-//                         padding: const EdgeInsets.all(25),
-//
-//                         child: Row(
-//                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                               children: [
-//                                 SizedBox(
-//                                   width: 150.0,
-//                                   height: 210.0,
-//                                   child: GestureDetector(
-//                                     onTap: () {
-//                                       Navigator.pushNamed(context, Registration.id);
-//                                     },
-//                                     child: Column(
-//                                       children: [
-//                                         Image.asset(
-//                                           'assets/images/create.png',
-//                                           fit: BoxFit.cover,
-//                                         ),
-//                                         const Text(
-//                                           'create Request',
-//                                           style: TextStyle(fontWeight: FontWeight.bold),
-//                                         ),
-//                                       ],
-//                                     ),
-//                                   ),
-//                                 ),
-//                                 SizedBox(
-//                                   width: 150.0,
-//                                   height: 210.0,
-//                                   child: GestureDetector(
-//                                     onTap: () {
-//                                       Navigator.pushNamed(context, ListPages.id);
-//                                     },
-//                                     child: Column(
-//                                       children: [
-//                                         Image.asset(
-//                                           'assets/images/check_2.png',
-//                                           fit: BoxFit.cover,
-//                                         ),
-//                                         const Text(
-//                                           'check Request',
-//                                           style: TextStyle(fontWeight: FontWeight.bold),
-//                                         )
-//                                       ],
-//                                     ),
-//                                   ),
-//                                 ),
-//                               ],
-//
-//                         ),
-//                       ),
-//                     )
-//                   ],
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
+ Widget itemDashboard(String title, IconData iconData, Color background, VoidCallback onTap) => InkWell(
+   onTap: onTap,
+        child: Container(
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [
+              BoxShadow(
+                  offset: const Offset(0, 5),
+                  color: Theme.of(context).primaryColor.withOpacity(.2),
+                  spreadRadius: 2,
+                  blurRadius: 5)
+            ]),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration:
+                  BoxDecoration(color: background, shape: BoxShape.circle),
+              child: Icon(
+                iconData,
+                color: Colors.white,
+              ),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Text(
+              title,
+              style: Theme.of(context).textTheme.titleMedium,
+            )
+          ],
+        ),
+  ),
+      );
+}
