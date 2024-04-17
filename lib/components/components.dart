@@ -39,10 +39,11 @@ InputDecoration customElevate(String title, IconData icon) {
   );
 }
 
-Future<String> uploadimg() async {
+Future<String> uploadimg(String type) async {
   String? imageUrl;
   ImagePicker imagePicker = ImagePicker();
-  XFile? file = await imagePicker.pickImage(source: ImageSource.gallery);
+  XFile? file = await imagePicker.pickImage(
+      source: type == "gallery" ? ImageSource.gallery : ImageSource.camera);
   print('${file?.path}');
   if (file == null) return "";
 

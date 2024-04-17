@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gvm_app/forms/listpage.dart';
+
 import '../components/components.dart';
 import 'package:http/http.dart' as http;
 
@@ -296,7 +297,36 @@ class _RegistrationState extends State<Registration> {
                                   size: 100,
                                 ),
                                 onPressed: () async {
-                                  imageUrl = await uploadimg();
+                                  imageUrl = await uploadimg("gallery");
+                                  setState(
+                                      () {}); // Update the UI after image upload completes
+                                },
+                              ),
+                            if (imageUrl != null)
+                              Image.network(
+                                imageUrl!, // Show the uploaded image
+                                width: 100,
+                                height: 100,
+                              ),
+                            const Text(
+                              'Profile img',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            // Show loading indicator or image based on the presence of imageUrl
+                            if (imageUrl == null)
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.camera_alt,
+                                  size: 100,
+                                ),
+                                onPressed: () async {
+                                  imageUrl = await uploadimg("camera");
                                   setState(
                                       () {}); // Update the UI after image upload completes
                                 },
