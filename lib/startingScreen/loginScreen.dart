@@ -37,7 +37,6 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           children: [
             Image.asset('assets/images/curve_bg.png'),
-
             Container(
               padding: EdgeInsets.only(
                   left: w * 0.04, right: w * 0.04, top: h * 0.14),
