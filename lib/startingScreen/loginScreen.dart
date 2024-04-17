@@ -33,15 +33,6 @@ class _LoginScreenState extends State<LoginScreen> {
     var w = MediaQuery.of(context).size.height;
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
-      // appBar: PreferredSize(
-      //   child: ClipPath(
-      //     clipper: CurveAppBar(),
-      //     child: AppBar(
-      //       backgroundColor: Color(0xFF7BE3FA), // Set the background color here
-      //     ),
-      //   ),
-      //   preferredSize: Size.fromHeight(150),
-      // ),
       body: SingleChildScrollView(
         child: Column(
           children: [
