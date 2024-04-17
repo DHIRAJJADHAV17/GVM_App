@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:gvm_app/forms/listpage.dart';
 import '../components/components.dart';
+import 'package:http/http.dart' as http;
 
 class Registration extends StatefulWidget {
   static String id = 'Registration';
@@ -375,6 +378,8 @@ class _RegistrationState extends State<Registration> {
                       ),
                     );
 
+
+                    notifyToAdmin("fcjcqxy8RJ2uwVGhQ6Y9zG:APA91bEt7LZlvLX03_-6MhKyBtDGD7vN533M34V-AMahgtdlHJ_VMH0mSvXKc6lTFkPdxPa9Trzmc69FA0aM34Wnnc8G0y8Pr64_SAQtSqoWAIqQUHDO_x-68w_zMYyNP5bzBIxHDLM1");
                     // Delay for 1 second and then redirect to dashboard
                     await Future.delayed(const Duration(seconds: 1));
                     Navigator.pushNamed(context, ListPages.id);
@@ -393,6 +398,55 @@ class _RegistrationState extends State<Registration> {
       ),
     );
   }
+}
+
+void notifyToAdmin(String _token) {
+
+  Future<void> sendPushMessage() async {
+    if (_token == null) {
+      print('Unable to send FCM message, no token exists.');
+      return;
+    }
+
+    try {
+      var response = await http.post(
+        Uri.parse('https://fcm.googleapis.com/v1/projects/gvm-project-d48af/messages:send'),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer AAAAsPdec3A:APA91bGI9qpi6v1EUZAuP6QE4wLRobKpUqPH-2j5GfUddVvuaGU2GW7VWQ77oEeKETXdb0yOibSXU-s3FhZeCrMKaAqZywnYl6yWL3DQdFon4ZFMjgUzTREYHscPVgqhihI_nTcbfmMW', // Replace YOUR_ACCESS_TOKEN with your actual Firebase access token
+        },
+        body: constructFCMPayload(_token), // Pass the constructed payload
+      );
+
+      if (response.statusCode == 200) {
+        // Request successful, handle response if needed
+        print('FCM message sent successfully');
+      } else {
+        // Request failed, handle error
+        print('Failed to send FCM message: ${response.statusCode}');
+        print('Response body: ${response.body}');
+      }
+    } catch (e) {
+      // Exception occurred, handle error
+      print('Exception occurred: $e');
+    }
+  }
+}
+int _messageCount = 0;
+
+String constructFCMPayload(String? token) {
+  _messageCount++;
+  return jsonEncode({
+    'token': token,
+    'data': {
+      'via': 'FlutterFire Cloud Messaging!!!',
+      'count': _messageCount.toString(),
+    },
+    'notification': {
+      'title': 'Hello FlutterFire!',
+      'body': 'This notification (#$_messageCount) was created via FCM!',
+    },
+  });
 }
 
 class Visitor {
